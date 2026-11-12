@@ -171,6 +171,55 @@ code, pre, .font-mono {
 }
 
 /* ==========================================================================
+   Introdução Minimalista
+   ========================================================================== */
+.intro-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid var(--color-cambridge);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.25rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.intro-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: var(--color-tiffany-soft);
+  color: var(--color-cambridge-dark);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.intro-text {
+  font-size: 0.83rem;
+  color: var(--color-taupe);
+  line-height: 1.55;
+}
+
+.intro-text code {
+  font-size: 0.76rem;
+  background: var(--color-khaki-light);
+  padding: 0.1rem 0.38rem;
+  border-radius: 4px;
+}
+
+@media (max-width: 700px) {
+  .intro-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+/* ==========================================================================
    KPIs Minimalistas (RF01)
    ========================================================================== */
 .kpi-grid {
