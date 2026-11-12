@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AnoniCare CRM — Integridade Relacional &amp; LGPD</title>
+
+  <!-- Favicon criado com base na logo oficial AnoniCare CRM -->
+  <link rel="icon" type="image/png" sizes="64x64" href="assets/favicon.png" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="apple-touch-icon" href="assets/logo-icon.png" />
+
+  <!-- Tipografia Limpa -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Linha Minimalista da Paleta Oficial -->
+  <div class="palette-bar" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <main class="app-container">
+    <!-- Cabeçalho Minimalista -->
+    <header class="app-header">
+      <div class="brand-group">
+        <img src="assets/logo.png" alt="AnoniCare CRM" class="brand-logo" />
+        <div class="brand-divider" aria-hidden="true"></div>
+        <div class="brand-text">
+          <span class="brand-slogan">“Esquecendo o titular, preservando a contabilidade.”</span>
+          <span class="brand-subtitle">Simulador LGPD: Anonimização (<code>UPDATE</code>) vs Exclusão Física (<code>DELETE</code>)</span>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button type="button" class="btn-secondary" onclick="toggleFaqChatbox(true)">
+          💬 Perguntas Frequentes
+        </button>
+        <button type="button" class="btn-reset" onclick="resetarSimulacao()">
+          🔄 Restaurar Dados
+        </button>
+      </div>
+    </header>
+
+    <!-- Faixa de KPIs Limpa e Direta (RF01) -->
+    <section class="kpi-grid" aria-label="Indicadores Contábeis e Relacionais">
+      <article id="kpi-card-faturamento" class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Faturamento Fiscal</span>
+          <span id="kpi-delta-faturamento" class="kpi-badge badge-ok">100% Conciliado</span>
+        </div>
+        <div id="kpi-val-faturamento" class="kpi-value">R$ 10.010,00</div>
+        <div id="kpi-foot-faturamento" class="kpi-caption">6 vendas com referência válida</div>
+      </article>
+
+      <article id="kpi-card-estoque" class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Histórico de Estoque</span>
+          <span id="kpi-delta-estoque" class="kpi-badge badge-ok">Rastreado</span>
+        </div>
+        <div id="kpi-val-estoque" class="kpi-value">10 insumos</div>
+        <div id="kpi-foot-estoque" class="kpi-caption">6 baixas vinculadas a clientes</div>
+      </article>
+
+      <article id="kpi-card-integridade" class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-label">Integridade Relacional (FK)</span>
+          <span id="kpi-delta-integridade" class="kpi-badge badge-ok">PK ↔ FK OK</span>
+        </div>
+        <div id="kpi-val-integridade" class="kpi-value">100% Íntegro</div>
+        <div id="kpi-foot-integridade" class="kpi-caption">Passe o mouse nas linhas para ver o vínculo 1:N</div>
+      </article>
+    </section>
+
+    <!-- Grid Principal: Tabelas Lado a Lado (RF02 e RF03) -->
+    <section class="tables-grid" aria-label="Tabelas Relacionais">
+      <!-- Tabela Pai: tb_clientes -->
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h2 class="card-title">Clientes</h2>
+            <span class="code-pill">tb_clientes</span>
+          </div>
+          <span class="key-hint">Chave Primária (PK)</span>
+        </div>
+
+        <div class="table-scroll">
+          <table class="clean-table">
+            <thead>
+              <tr>
+                <th>ID (PK)</th>
+                <th>Titular &amp; Contato</th>
+                <th>CPF</th>
+                <th>Status</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-clientes"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tabela Filha: tb_movimentacoes -->
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h2 class="card-title">Faturamento &amp; Estoque</h2>
+            <span class="code-pill">tb_movimentacoes</span>
+          </div>
+          <span class="key-hint">Chave Estrangeira (FK)</span>
+        </div>
+
+        <div class="table-scroll">
+          <table class="clean-table">
+            <thead>
+              <tr>
+                <th>FK_Cliente</th>
+                <th>Procedimento / Insumo</th>
+                <th>Valor</th>
+                <th>Vínculo</th>
+              </tr>
+            </thead>
+            <tbody id="tbody-movimentacoes"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé Educativo: Console SQL (RF06) + Log de Compliance (RF07) -->
+    <section class="bottom-grid" aria-label="Console SQL e Log de Auditoria">
+      <!-- Console SQL -->
+      <div class="sql-card">
+        <div class="sql-bar">
+          <span class="sql-bar-title">Console SQL Didático</span>
+          <div class="sql-switch">
+            <button type="button" id="tab-sql-comparativo" class="active" onclick="alternarAbaSql('comparativo')">Comparativo</button>
+            <button type="button" id="tab-sql-ultimo" onclick="alternarAbaSql('ultimo')">Último Executado</button>
+          </div>
+        </div>
+        <pre id="sql-code-output" class="sql-pre"></pre>
+        <div id="sql-impact-banner" class="sql-note"></div>
+      </div>
+
+      <!-- Log de Compliance LGPD -->
+      <div class="card-panel">
+        <div class="card-header">
+          <div class="card-title-wrap">
+            <h3 class="card-title">Log de Auditoria LGPD</h3>
+            <span id="audit-log-count" class="code-pill">0 protocolos</span>
+          </div>
+          <span style="font-size: 0.72rem; color: var(--color-taupe-muted);">Sem retenção de dados pessoais</span>
+        </div>
+        <div id="audit-log-list" class="audit-body"></div>
+      </div>
+    </section>
+
+    <!-- Base Legal Compacta (Etapa 4.2) -->
+    <section class="legal-strip" aria-label="Base Legal LGPD">
+      <div class="legal-mini-card">
+        <div class="legal-mini-top">
+          <span class="legal-tag">Art. 12 LGPD</span>
+          <h4>Anonimização</h4>
+        </div>
+        <p>Dados anonimizados via <code>UPDATE</code> irreversível deixam de ser dados pessoais, protegendo o titular sem remover o <code>ID</code>.</p>
+      </div>
+
+      <div class="legal-mini-card">
+        <div class="legal-mini-top">
+          <span class="legal-tag">Art. 16 LGPD</span>
+          <h4>Obrigação Fiscal e Sanitária</h4>
+        </div>
+        <p>Autoriza conservar registros para obrigação legal (notas fiscais e lotes ANVISA), desde que anonimizados os dados pessoais.</p>
+      </div>
+
+      <div class="legal-mini-card">
+        <div class="legal-mini-top">
+          <span class="legal-tag">Art. 18 LGPD</span>
+          <h4>Direito do Titular</h4>
+        </div>
+        <p>Atende ao pedido de exclusão do cliente sem gerar registros órfãos ou perda de histórico contábil da clínica.</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       Chatbox Flutuante de Perguntas Frequentes (FAQ)
+       ======================================================================== -->
+  <button type="button" class="faq-Launcher" onclick="toggleFaqChatbox()" aria-label="Abrir chat de perguntas frequentes">
+    <img src="assets/logo-icon.png" alt="" class="faq-launcher-icon" />
+    <span>Dúvidas Frequentes</span>
+  </button>
+
+  <aside id="faq-chatbox" class="faq-chatbox" aria-label="Assistente de Perguntas Frequentes AnoniCare">
+    <div class="faq-header">
+      <div class="faq-header-brand">
+        <img src="assets/logo-icon.png" alt="AnoniCare" />
+        <div>
+          <span class="faq-header-title">Assistente AnoniCare</span>
+          <span class="faq-header-sub">Perguntas Frequentes • LGPD &amp; SQL</span>
+        </div>
+      </div>
+      <button type="button" class="faq-close-btn" onclick="toggleFaqChatbox(false)" title="Fechar">✕</button>
+    </div>
+
+    <div id="faq-messages" class="faq-messages"></div>
+
+    <div class="faq-suggestions">
+      <span class="faq-suggestions-label">Toque em uma pergunta frequente:</span>
+      <div id="faq-chips" class="faq-chips-scroll"></div>
+    </div>
+
+    <form class="faq-input-bar" onsubmit="enviarPerguntaFaq(event)">
+      <input type="text" id="faq-input" placeholder="Ou digite sua dúvida aqui..." autocomplete="off" />
+      <button type="submit" class="faq-send-btn">Enviar</button>
+    </form>
+  </aside>
+
+  <script src="app.js"></script>
+</body>
+</html>

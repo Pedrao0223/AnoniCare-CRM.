@@ -1,0 +1,910 @@
+/* ==========================================================================
+   AnoniCare CRM — Minimalist Design System & Paleta Oficial
+   - Khaki:          #A49E8D (Neutro quente, bordas sutis, textos secundários)
+   - Taupe:          #504136 (Marrom profundo, tipografia principal, terminal)
+   - Cambridge Blue: #689689 (Verde-sálvia principal, integridade PK/FK)
+   - Tiffany Blue:   #B2E6D4 (Verde-menta suave, hover relacional, superfícies)
+   - Aquamarine:     #83E8BA (Verde-água vibrante, conformidade LGPD)
+   ========================================================================== */
+
+:root {
+  --color-khaki: #A49E8D;
+  --color-khaki-light: #ECE9E2;
+  --color-taupe: #504136;
+  --color-taupe-dark: #362B23;
+  --color-taupe-muted: #7A6B5E;
+  --color-cambridge: #689689;
+  --color-cambridge-dark: #4D756A;
+  --color-cambridge-soft: #EBF3F0;
+  --color-tiffany: #B2E6D4;
+  --color-tiffany-soft: #EDF9F5;
+  --color-aquamarine: #83E8BA;
+  --color-aquamarine-dark: #216E4B;
+  --color-aquamarine-soft: #E6FBF1;
+
+  --bg-page: #F7F8F3;
+  --bg-card: #FFFFFF;
+
+  --danger-bg: #FEF2F2;
+  --danger-border: #F87171;
+  --danger-text: #B91C1C;
+
+  --border-subtle: rgba(164, 158, 141, 0.26);
+  --shadow-soft: 0 2px 12px rgba(80, 65, 54, 0.04);
+  --shadow-float: 0 12px 32px rgba(80, 65, 54, 0.14);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-page);
+  color: var(--color-taupe);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.5;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', Consolas, monospace;
+}
+
+/* Linha superior minimalista com as 5 cores da paleta */
+.palette-bar {
+  display: flex;
+  height: 4px;
+  width: 100%;
+}
+.palette-bar span:nth-child(1) { flex: 1; background: var(--color-khaki); }
+.palette-bar span:nth-child(2) { flex: 1; background: var(--color-taupe); }
+.palette-bar span:nth-child(3) { flex: 1; background: var(--color-cambridge); }
+.palette-bar span:nth-child(4) { flex: 1; background: var(--color-tiffany); }
+.palette-bar span:nth-child(5) { flex: 1; background: var(--color-aquamarine); }
+
+/* Layout Principal Limpo e Arejado */
+.app-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 1.5rem 1.75rem 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ==========================================================================
+   Cabeçalho Minimalista
+   ========================================================================== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-bottom: 0.5rem;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.brand-logo {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.brand-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border-subtle);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-slogan {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-taupe);
+}
+
+.brand-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-taupe-muted);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--bg-card);
+  color: var(--color-taupe);
+  border: 1px solid var(--border-subtle);
+  padding: 0.55rem 0.95rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-secondary:hover {
+  border-color: var(--color-cambridge);
+  background: var(--color-tiffany-soft);
+}
+
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--color-taupe);
+  color: #FFFFFF;
+  border: 1px solid var(--color-taupe);
+  padding: 0.55rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-reset:hover {
+  background: var(--color-cambridge-dark);
+  border-color: var(--color-cambridge-dark);
+}
+
+/* ==========================================================================
+   KPIs Minimalistas (RF01)
+   ========================================================================== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: all 0.22s ease;
+}
+
+.kpi-card.kpi-error {
+  background: var(--danger-bg);
+  border-color: var(--danger-border);
+}
+
+.kpi-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.kpi-label {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-taupe-muted);
+}
+
+.kpi-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+}
+
+.kpi-badge.badge-ok {
+  background: var(--color-aquamarine-soft);
+  color: var(--color-aquamarine-dark);
+}
+
+.kpi-badge.badge-err {
+  background: #FEE2E2;
+  color: var(--danger-text);
+}
+
+.kpi-value {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--color-taupe);
+  letter-spacing: -0.02em;
+}
+
+.kpi-card.kpi-error .kpi-value {
+  color: var(--danger-text);
+}
+
+.kpi-caption {
+  font-size: 0.76rem;
+  color: var(--color-taupe-muted);
+}
+
+/* ==========================================================================
+   Grid Principal de Tabelas Lado a Lado (RF02 & RF03)
+   ========================================================================== */
+.tables-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.15rem;
+  align-items: start;
+}
+
+.card-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 0.9rem 1.15rem;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.card-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.card-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-taupe);
+}
+
+.code-pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 5px;
+  background: var(--color-khaki-light);
+  color: var(--color-taupe);
+}
+
+.key-hint {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--color-cambridge-dark);
+  background: var(--color-cambridge-soft);
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+}
+
+.table-scroll {
+  overflow-x: auto;
+}
+
+.clean-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.81rem;
+}
+
+.clean-table th {
+  background: #FAF9F6;
+  color: var(--color-taupe-muted);
+  font-size: 0.69rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.65rem 0.9rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  white-space: nowrap;
+}
+
+.clean-table td {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid rgba(164, 158, 141, 0.16);
+  vertical-align: middle;
+}
+
+.clean-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.clean-table tbody tr {
+  transition: background 0.15s ease;
+}
+
+/* Hover cruzado intuitivo (Etapa 4.1) */
+.clean-table tbody tr.row-hover-link {
+  background: var(--color-tiffany-soft) !important;
+}
+
+.clean-table tbody tr.row-anonymized {
+  background: rgba(131, 232, 186, 0.12);
+}
+
+.clean-table tbody tr.row-orphan {
+  background: var(--danger-bg) !important;
+}
+
+/* Chips de PK e FK */
+.pk-fk-badge {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.74rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  background: var(--color-cambridge-soft);
+  color: var(--color-cambridge-dark);
+  border: 1px solid rgba(104, 150, 137, 0.35);
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+tr.row-hover-link .pk-fk-badge {
+  background: var(--color-aquamarine);
+  color: var(--color-taupe-dark);
+  border-color: var(--color-cambridge-dark);
+}
+
+.pk-fk-badge.fk-broken {
+  background: #FEE2E2;
+  color: var(--danger-text);
+  border-color: var(--danger-border);
+  text-decoration: line-through;
+}
+
+/* Célula de Cliente */
+.client-primary {
+  font-weight: 700;
+  color: var(--color-taupe);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.client-primary.is-masked {
+  color: var(--color-aquamarine-dark);
+}
+
+.client-secondary {
+  font-size: 0.73rem;
+  color: var(--color-taupe-muted);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.case-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  background: #FEF3C7;
+  color: #92400E;
+}
+
+/* Status Pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-size: 0.69rem;
+  font-weight: 700;
+  padding: 0.18rem 0.52rem;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.status-pill.pill-active {
+  background: var(--color-khaki-light);
+  color: var(--color-taupe);
+}
+
+.status-pill.pill-anon {
+  background: var(--color-aquamarine);
+  color: var(--color-taupe-dark);
+}
+
+.status-pill.pill-orphan {
+  background: #FEE2E2;
+  color: var(--danger-text);
+}
+
+/* Botões de Ação Minimalistas */
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-row {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.36rem 0.62rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.btn-row-anon {
+  background: var(--color-cambridge);
+  color: #FFFFFF;
+  border: 1px solid var(--color-cambridge);
+}
+
+.btn-row-anon:hover:not(:disabled) {
+  background: var(--color-aquamarine);
+  color: var(--color-taupe-dark);
+  border-color: var(--color-cambridge-dark);
+}
+
+.btn-row-delete {
+  background: transparent;
+  color: var(--danger-text);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.btn-row-delete:hover:not(:disabled) {
+  background: var(--danger-text);
+  color: #FFFFFF;
+}
+
+.btn-row:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.price-cell {
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+tr.row-orphan .price-cell {
+  color: var(--danger-text);
+  text-decoration: line-through;
+}
+
+/* ==========================================================================
+   Seção Inferior: Console SQL (RF06) + Auditoria LGPD (RF07)
+   ========================================================================== */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 1.15rem;
+}
+
+.sql-card {
+  background: var(--color-taupe-dark);
+  color: #F7F8F3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sql-bar {
+  padding: 0.75rem 1.1rem;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.sql-bar-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-tiffany);
+}
+
+.sql-switch {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.sql-switch button {
+  background: transparent;
+  color: var(--color-khaki);
+  border: 1px solid rgba(164, 158, 141, 0.3);
+  padding: 0.2rem 0.55rem;
+  border-radius: 5px;
+  font-size: 0.69rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sql-switch button.active {
+  background: var(--color-cambridge);
+  color: #FFFFFF;
+  border-color: var(--color-cambridge);
+}
+
+.sql-pre {
+  padding: 0.95rem 1.1rem;
+  font-size: 0.77rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  flex: 1;
+}
+
+.sql-kw { color: var(--color-aquamarine); font-weight: 700; }
+.sql-tb { color: var(--color-tiffany); }
+.sql-str { color: #FDE68A; }
+.sql-cm-bad { color: #FCA5A5; }
+.sql-cm-ok { color: var(--color-aquamarine); }
+
+.sql-note {
+  padding: 0.6rem 1.1rem;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(164, 158, 141, 0.18);
+  color: var(--color-khaki-light);
+}
+
+/* Lista de Auditoria Minimalista */
+.audit-body {
+  padding: 0.85rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.audit-item {
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  background: var(--bg-page);
+  border-left: 3px solid var(--color-cambridge);
+  font-size: 0.76rem;
+}
+
+.audit-item.audit-ok {
+  border-left-color: var(--color-aquamarine-dark);
+  background: var(--color-tiffany-soft);
+}
+
+.audit-item.audit-err {
+  border-left-color: var(--danger-text);
+  background: var(--danger-bg);
+}
+
+.audit-meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  font-weight: 700;
+  color: var(--color-taupe-muted);
+  margin-bottom: 0.2rem;
+}
+
+/* ==========================================================================
+   Faixa Compacta da Base Legal (Etapa 4.2 — Art. 12, 16 e 18 da LGPD)
+   ========================================================================== */
+.legal-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.legal-mini-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1.05rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.legal-mini-top {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.legal-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.69rem;
+  font-weight: 700;
+  padding: 0.12rem 0.45rem;
+  border-radius: 4px;
+  background: var(--color-tiffany-soft);
+  color: var(--color-cambridge-dark);
+}
+
+.legal-mini-card h4 {
+  font-size: 0.81rem;
+  font-weight: 700;
+  color: var(--color-taupe);
+}
+
+.legal-mini-card p {
+  font-size: 0.75rem;
+  color: var(--color-taupe-muted);
+}
+
+/* ==========================================================================
+   Chatbox Flutuante de Perguntas Frequentes (FAQ)
+   Segue estritamente a paleta (#504136, #689689, #B2E6D4, #83E8BA, #A49E8D)
+   ========================================================================== */
+.faq-Launcher {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--color-taupe);
+  color: #FFFFFF;
+  border: 2px solid var(--color-aquamarine);
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-float);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.faq-Launcher:hover {
+  background: var(--color-cambridge-dark);
+  transform: translateY(-2px);
+}
+
+.faq-launcher-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background: var(--bg-page);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.faq-chatbox {
+  position: fixed;
+  bottom: 5.2rem;
+  right: 1.5rem;
+  width: 370px;
+  max-width: calc(100vw - 2rem);
+  height: 490px;
+  max-height: calc(100vh - 7rem);
+  background: var(--bg-card);
+  border: 1px solid rgba(104, 150, 137, 0.45);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-float);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(12px) scale(0.98);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.faq-chatbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.faq-header {
+  background: var(--color-taupe);
+  color: #FFFFFF;
+  padding: 0.85rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--color-cambridge);
+}
+
+.faq-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.faq-header-brand img {
+  width: 28px;
+  height: 28px;
+  background: var(--bg-page);
+  border-radius: 8px;
+  padding: 3px;
+}
+
+.faq-header-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: block;
+}
+
+.faq-header-sub {
+  font-size: 0.69rem;
+  color: var(--color-tiffany);
+  display: block;
+}
+
+.faq-close-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-close-btn:hover {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.faq-messages {
+  flex: 1;
+  padding: 0.9rem;
+  overflow-y: auto;
+  background: var(--bg-page);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.chat-msg {
+  max-width: 88%;
+  padding: 0.65rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.chat-msg.msg-bot {
+  align-self: flex-start;
+  background: var(--bg-card);
+  color: var(--color-taupe);
+  border: 1px solid var(--border-subtle);
+  border-bottom-left-radius: 4px;
+}
+
+.chat-msg.msg-user {
+  align-self: flex-end;
+  background: var(--color-cambridge);
+  color: #FFFFFF;
+  border-bottom-right-radius: 4px;
+  font-weight: 600;
+}
+
+.faq-suggestions {
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.faq-suggestions-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-taupe-muted);
+}
+
+.faq-chips-scroll {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  max-height: 86px;
+  overflow-y: auto;
+}
+
+.faq-chip {
+  background: var(--color-tiffany-soft);
+  color: var(--color-taupe);
+  border: 1px solid rgba(104, 150, 137, 0.35);
+  padding: 0.28rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.71rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.faq-chip:hover {
+  background: var(--color-aquamarine);
+  border-color: var(--color-cambridge-dark);
+}
+
+.faq-input-bar {
+  display: flex;
+  padding: 0.55rem 0.75rem;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-subtle);
+  gap: 0.45rem;
+}
+
+.faq-input-bar input {
+  flex: 1;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-page);
+  color: var(--color-taupe);
+  padding: 0.45rem 0.7rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.faq-input-bar input:focus {
+  border-color: var(--color-cambridge);
+}
+
+.faq-send-btn {
+  background: var(--color-taupe);
+  color: #FFFFFF;
+  border: none;
+  padding: 0 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.faq-send-btn:hover {
+  background: var(--color-cambridge-dark);
+}
+
+@media (max-width: 1100px) {
+  .tables-grid,
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .kpi-grid,
+  .legal-strip {
+    grid-template-columns: 1fr;
+  }
+  .brand-divider {
+    display: none;
+  }
+}
